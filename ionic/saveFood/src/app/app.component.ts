@@ -17,10 +17,10 @@ export class AppComponent {
     private storage: Storage
   ) {
     this.initializeApp();
-    storage.get('showSlide').then((val) => {
+    this.storage.get('showSlide').then((val) => {
       if (val === undefined) {
         console.info('App is running for the first time after installation => Show intro slide');
-        storage.set('showSlide', false);
+        this.storage.set('showSlide', false);
         // Show slide
 
       }

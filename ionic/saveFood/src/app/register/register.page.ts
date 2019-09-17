@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
 import { RegcompletePage } from '../regcomplete/regcomplete.page';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 export class User {
   email: string;
@@ -16,13 +17,16 @@ export class User {
 })
 export class RegisterPage implements OnInit {
   public user: User = new User();
-
-  constructor(public fAuth: AngularFireAuth,
+  userList: any;
+  constructor(
+    public fAuth: AngularFireAuth,
+    private afs: AngularFirestore,
     public router: Router,
     public modalController: ModalController,
     public toastController: ToastController
   ) {
-
+    this.userList = this.afs.collection('users');
+    console.log(this.userList)
   }
 
   ngOnInit() {
@@ -34,6 +38,8 @@ export class RegisterPage implements OnInit {
       if (registration) {
         console.info('Successfully registered');
         this.notifyToConfirmEmail();
+        // Add user UID to database
+        this.addUserInfoToFireStore(registration.user);
       }
     }
     catch (err) { 
@@ -59,5 +65,16 @@ export class RegisterPage implements OnInit {
       duration: 2000
     });
     toast.present();
+  }
+
+  addUserInfoToFireStore(_user: any) {
+    const newUserData = {
+      uid: _user.uid,
+      displayName: _user.displayName,
+      email: _user.email,
+      phoneNumber: _user.phoneNumber,
+      photoUrl: _user.phoneNumber
+    }
+    this.userList.add(newUserData);
   }
 }

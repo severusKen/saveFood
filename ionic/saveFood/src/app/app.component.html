@@ -1,3 +1,11 @@
 <ion-app>
+  <ion-content fullscreen padding scroll-y="false">
+    <ion-slides *ngIf="isSlideShowing">
+      <ion-slide></ion-slide>
+      <ion-slide></ion-slide>
+      <ion-slide></ion-slide>
+      <ion-slide></ion-slide>
+    </ion-slides>
+  </ion-content>
   <ion-router-outlet></ion-router-outlet>
 </ion-app>

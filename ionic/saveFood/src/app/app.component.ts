@@ -12,7 +12,6 @@ import { Storage } from '@ionic/storage';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-  isSlideShowing: boolean = false;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -21,18 +20,6 @@ export class AppComponent {
     public router: Router
   ) {
     this.initializeApp();
-    this.storage.get('showSlide').then((val) => {
-      if (val === undefined) {
-        console.info('App is running for the first time after installation => Show intro slide');
-        this.storage.set('showSlide', false);
-        // Allow slide to be shown
-        this.isSlideShowing = true;
-      }
-      else {
-        console.info('This is not the first time load, show slide would not be loaded');
-        // Navigate for home page
-      }
-    })
   }
 
   initializeApp() {

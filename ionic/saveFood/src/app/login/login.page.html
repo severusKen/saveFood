@@ -1,9 +1,30 @@
-<ion-header>
+<ion-header translucent>
   <ion-toolbar>
-    <ion-title>login</ion-title>
+    <ion-title>Log in</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating" type="password">Password</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+      <ion-button expand="block" color="tertiary">Log in</ion-button>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      Have no account?
+    </ion-card-header>
+    <ion-card-content>
+      <ion-button expand="block">Create account</ion-button>
+    </ion-card-content>
+  </ion-card>
+  
 </ion-content>

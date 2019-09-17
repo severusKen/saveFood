@@ -14,9 +14,15 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
+import { RegcompletePage } from './regcomplete/regcomplete.page';
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [
+    AppComponent,
+    RegcompletePage
+  ],
+  entryComponents: [
+    RegcompletePage
+  ],
   imports: [
     BrowserModule, 
     IonicModule.forRoot(), 
@@ -25,7 +31,7 @@ import { environment } from '../environments/environment';
     AngularFireModule.initializeApp(environment.firebaseConfig), // Initialization for Firebase Connection
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
-    AngularFireStorageModule // imports firebase/storage only needed for storage features
+    AngularFireStorageModule, // imports firebase/storage only needed for storage features
   ],
   providers: [
     StatusBar,

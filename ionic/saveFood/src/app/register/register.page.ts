@@ -36,6 +36,7 @@ export class RegisterPage implements OnInit {
     try {
       const registration = await this.fAuth.auth.createUserWithEmailAndPassword(this.user.email, this.user.password);
       if (registration) {
+        console.log(registration);
         console.info('Successfully registered');
         this.notifyToConfirmEmail();
         // Add user UID to database

@@ -24,7 +24,8 @@ export class LoginPage implements OnInit {
     try {
       const signin = await this.fAuth.auth.signInWithEmailAndPassword(this.user.email, this.user.password);
       if (signin) {
-        console.info('Successfully registered');
+        console.log(signin)
+        console.info('Successfully logged in');
         this.router.navigate(['/home']);
       }
     }

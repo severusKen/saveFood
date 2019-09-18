@@ -41,4 +41,10 @@ export class LoginPage implements OnInit {
     });
     toast.present();
   }
+
+  goToRegisterPage() {
+    this.user.password = '';
+    this.user.email = '';
+    this.router.navigate(['/register']);
+  }
 }

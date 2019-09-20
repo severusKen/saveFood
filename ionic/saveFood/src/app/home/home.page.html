@@ -1,9 +1,19 @@
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="food-list">
+      <ion-icon name="pizza"></ion-icon>
+      <ion-label>List</ion-label>
+      <ion-badge>4</ion-badge>
+    </ion-tab-button>
 
+    <ion-tab-button tab="test">
+      <ion-icon name="contacts"></ion-icon>
+      <ion-label>test</ion-label>
+    </ion-tab-button>
 
-<ion-card *ngFor="let food of foods" (click)="openFoodDetail(food.name)">
-  <ion-card-content>
-    <p>{{ food.name }}</p>
-  </ion-card-content>
-
-  <ion-icon name="{{ food.icon}}"></ion-icon>
-</ion-card>
+    <ion-tab-button tab="profile">
+      <ion-icon name="person"></ion-icon>
+      <ion-label>Profile</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

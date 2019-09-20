@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Food list</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card *ngFor="let food of foods" (click)="openFoodDetail(food.name)">
+    <ion-card-content>
+      <p>{{ food.name }}</p>
+    </ion-card-content>
+
+    <ion-icon name="{{ food.icon}}"></ion-icon>
+  </ion-card>
+</ion-content>

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
 import { HomePage } from './home.page';
 
 @NgModule({
@@ -14,10 +13,52 @@ import { HomePage } from './home.page';
     RouterModule.forChild([
       {
         path: '',
-        component: HomePage
+        component: HomePage,
+        children: [
+          {
+            path: 'food-list',
+            children: [
+              {
+                path: '',
+                loadChildren: () =>
+                  import('../food-list/food-list.module').then(m => m.FoodListPageModule)
+              }
+            ]
+          },
+          {
+            path: 'test',
+            children: [
+              {
+                path: '',
+                loadChildren: () =>
+                  import('../test/test.module').then(m => m.TestPageModule)
+              }
+            ]
+          },
+          {
+            path: 'profile',
+            children: [
+              {
+                path: '',
+                loadChildren: () =>
+                  import('../profile/profile.module').then(m => m.ProfilePageModule)
+              }
+            ]
+          },
+          {
+            path: '',
+            redirectTo: '/home/food-list',
+            pathMatch: 'full'
+          }
+        ]
+      },
+      {
+        path: '',
+        redirectTo: '/home/food-list',
+        pathMatch: 'full'
       }
-    ])
+    ]),
   ],
-  declarations: [HomePage]
+declarations: [HomePage]
 })
-export class HomePageModule {}
+export class HomePageModule { }

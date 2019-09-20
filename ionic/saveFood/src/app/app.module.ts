@@ -15,13 +15,16 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { RegcompletePage } from './regcomplete/regcomplete.page';
+import { FoodDetailPage } from '../app/food-detail/food-detail.page'
 @NgModule({
   declarations: [
     AppComponent,
-    RegcompletePage
+    RegcompletePage,
+    FoodDetailPage
   ],
   entryComponents: [
-    RegcompletePage
+    RegcompletePage,
+    FoodDetailPage
   ],
   imports: [
     BrowserModule, 

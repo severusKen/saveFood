@@ -1,11 +1,13 @@
 export interface Food {
     id: number;
-    donorName: string;
+    donorUid: string;
+    foodType: string;
     status: string;
     thumbnail: string;
     timeCreated: Date;
     desciption: string;
     expiry: Date;
+    location: string; // for now it's a stirng, might create extra interface
 }
 
 export interface User {

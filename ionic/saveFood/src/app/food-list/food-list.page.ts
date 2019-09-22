@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-food-list',
@@ -6,35 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./food-list.page.scss'],
 })
 export class FoodListPage implements OnInit {
-  foods: Array<any>;
-  constructor() {
-    this.foods = [
-      {
-        name: 'hamburger',
-        image: '',
-        id: 0,
-        icon: "logo-apple"
-      },
-      {
-        name: 'hotdog',
-        image: '',
-        id: 1,
-        icon: "logo-google"
-      },
-      {
-        name: 'taco',
-        image: '',
-        id: 2
-      },
-      {
-        name: 'salad',
-        image: '',
-        id: 4
-      }
-    ]
+  foodList: Observable<any[]>;
+  constructor(private af: AngularFirestore) {
+    this.foodList = this.af.collection('foodlist').valueChanges();
   }
 
   ngOnInit() {
+    
+
   }
 
+  openFoodDetail() {
+    
+  }
 }

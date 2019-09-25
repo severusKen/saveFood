@@ -23,7 +23,7 @@ export class FoodListPage implements OnInit {
 
   }
 
-  async openFoodDetail() {
+  async openFoodDetail(foodId: any) {
     const modal = await this.modalController.create({
       component: FoodDetailPage,
       backdropDismiss: false

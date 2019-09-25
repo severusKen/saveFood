@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ModalController } from '@ionic/angular';
 @Component({
   selector: 'app-food-detail',
   templateUrl: './food-detail.page.html',
@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FoodDetailPage implements OnInit {
 
-  constructor() { }
+  constructor(public modalCtrl: ModalController) { }
 
   ngOnInit() {
   }
 
+  dismiss() {
+    this.modalCtrl.dismiss({
+      'dismissed': true
+    });
+  }
 }

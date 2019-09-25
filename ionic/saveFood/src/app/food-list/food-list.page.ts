@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { UploadPage } from '../upload/upload.page';
+import { ModalController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { FoodDetailPage } from '../food-detail/food-detail.page';
 
 @Component({
   selector: 'app-food-list',
@@ -9,7 +13,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class FoodListPage implements OnInit {
   foodList: Observable<any[]>;
-  constructor(private af: AngularFirestore) {
+  constructor(private af: AngularFirestore, public modalController: ModalController,
+    public router: Router) {
     this.foodList = this.af.collection('foodlist').valueChanges();
   }
 
@@ -18,7 +23,19 @@ export class FoodListPage implements OnInit {
 
   }
 
-  openFoodDetail() {
-    
+  async openFoodDetail() {
+    const modal = await this.modalController.create({
+      component: FoodDetailPage,
+      backdropDismiss: false
+    });
+    return await modal.present();
+  }
+
+  async openUploadPage() {
+    const modal = await this.modalController.create({
+      component: UploadPage,
+      backdropDismiss: false
+    });
+    return await modal.present();
   }
 }

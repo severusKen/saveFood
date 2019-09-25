@@ -15,16 +15,20 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { RegcompletePage } from './regcomplete/regcomplete.page';
-import { FoodDetailPage } from '../app/food-detail/food-detail.page'
+import { FoodDetailPage } from '../app/food-detail/food-detail.page';
+import { UploadPage } from '../app/upload/upload.page';
+import { RegcompletePageModule } from './regcomplete/regcomplete.module';
+import { UploadPageModule } from './upload/upload.module';
+import { FoodDetailPageModule } from './food-detail/food-detail.module';
+
 @NgModule({
   declarations: [
-    AppComponent,
-    RegcompletePage,
-    FoodDetailPage
+    AppComponent
   ],
   entryComponents: [
     RegcompletePage,
-    FoodDetailPage
+    FoodDetailPage,
+    UploadPage
   ],
   imports: [
     BrowserModule, 
@@ -35,6 +39,9 @@ import { FoodDetailPage } from '../app/food-detail/food-detail.page'
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
+    RegcompletePageModule,
+    UploadPageModule,
+    FoodDetailPageModule
   ],
   providers: [
     StatusBar,

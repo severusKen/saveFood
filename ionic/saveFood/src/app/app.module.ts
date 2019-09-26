@@ -20,7 +20,7 @@ import { UploadPage } from '../app/upload/upload.page';
 import { RegcompletePageModule } from './regcomplete/regcomplete.module';
 import { UploadPageModule } from './upload/upload.module';
 import { FoodDetailPageModule } from './food-detail/food-detail.module';
-
+import { Camera } from '@ionic-native/camera/ngx';
 @NgModule({
   declarations: [
     AppComponent
@@ -46,6 +46,7 @@ import { FoodDetailPageModule } from './food-detail/food-detail.module';
   providers: [
     StatusBar,
     SplashScreen,
+    Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

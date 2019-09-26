@@ -1,5 +1,7 @@
 {
   "name": "saveFood",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

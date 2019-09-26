@@ -9,6 +9,17 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-content>
+      <ion-button expand="block" (click)="openCamera()">
+        Take a picture
+      </ion-button>
 
+      <ion-button expand="block" (click)="openGallery()">
+        Open camera roll
+      </ion-button>
+      <img [src]="currentImage" *ngIf="currentImage">
+    </ion-card-content>
+  </ion-card>
 </ion-content>

@@ -15,19 +15,17 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { RegcompletePage } from './regcomplete/regcomplete.page';
-import { FoodDetailPage } from '../app/food-detail/food-detail.page';
 import { UploadPage } from '../app/upload/upload.page';
 import { RegcompletePageModule } from './regcomplete/regcomplete.module';
 import { UploadPageModule } from './upload/upload.module';
-import { FoodDetailPageModule } from './food-detail/food-detail.module';
 import { Camera } from '@ionic-native/camera/ngx';
+import { GoogleMaps } from '@ionic-native/google-maps';
 @NgModule({
   declarations: [
     AppComponent
   ],
   entryComponents: [
     RegcompletePage,
-    FoodDetailPage,
     UploadPage
   ],
   imports: [
@@ -40,13 +38,13 @@ import { Camera } from '@ionic-native/camera/ngx';
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
     RegcompletePageModule,
-    UploadPageModule,
-    FoodDetailPageModule
+    UploadPageModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
     Camera,
+    GoogleMaps,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

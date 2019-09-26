@@ -4,7 +4,6 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { UploadPage } from '../upload/upload.page';
 import { ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { FoodDetailPage } from '../food-detail/food-detail.page';
 
 @Component({
   selector: 'app-food-list',
@@ -23,12 +22,8 @@ export class FoodListPage implements OnInit {
 
   }
 
-  async openFoodDetail(foodId: any) {
-    const modal = await this.modalController.create({
-      component: FoodDetailPage,
-      backdropDismiss: false
-    });
-    return await modal.present();
+  async openFoodDetail(food) {
+    this.router.navigate(['/food-detail'], { queryParams: food });
   }
 
   async openUploadPage() {

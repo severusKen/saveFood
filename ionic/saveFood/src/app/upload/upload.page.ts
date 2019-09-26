@@ -7,7 +7,9 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
   styleUrls: ['./upload.page.scss'],
 })
 export class UploadPage implements OnInit {
+  //currentImage: any = '../../assets/images/img_placeholder.png';
   currentImage: any;
+
   constructor(public modalCtrl: ModalController, private camera: Camera) { }
 
   ngOnInit() {

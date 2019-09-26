@@ -99,8 +99,7 @@
     <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
-	<!-- Required for iOS 10: Camera permission prompt -->
-	<edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
-		<string>Used to take pictures</string>
-	</edit-config>
+    <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
+        <string>Used to take pictures</string>
+    </edit-config>
 </widget>

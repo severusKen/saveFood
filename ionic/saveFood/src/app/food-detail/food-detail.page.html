@@ -1,14 +1,31 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Food Detail</ion-title>
-    <ion-buttons slot="primary">
-      <ion-button (click)="dismiss()">
-        <ion-icon slot="icon-only" name="close"></ion-icon>
+    <ion-buttons slot="start">
+      <ion-button routerLink="/home/food-list" routerDirection="backward">
+        <ion-icon name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-card>
+    <img src="{{ food.thumbnail }}" />
+    <ion-card-header>
+      <ion-card-subtitle>{{ food.foodType }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      Donor id: {{ food.donorUid }} <br>
+      Expiry: {{ food.expiry }} <br>
+      Status: {{ food.status }}
+    </ion-card-content>
+  </ion-card>
 
+  <ion-card>
+    <ion-card-subtitle>Location</ion-card-subtitle>
+    <ion-card-content>
+      <div id="map_canvas"></div>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

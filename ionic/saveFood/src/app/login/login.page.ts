@@ -26,6 +26,7 @@ export class LoginPage implements OnInit {
       if (signin) {
         console.log(signin)
         console.info('Successfully logged in');
+        this.user.password = '';
         this.router.navigate(['/home']);
       }
     }

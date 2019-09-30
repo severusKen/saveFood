@@ -20,6 +20,7 @@ import { RegcompletePageModule } from './regcomplete/regcomplete.module';
 import { UploadPageModule } from './upload/upload.module';
 import { Camera } from '@ionic-native/camera/ngx';
 import { GoogleMaps } from '@ionic-native/google-maps';
+import { UserService } from './services/user.service';
 @NgModule({
   declarations: [
     AppComponent
@@ -45,6 +46,7 @@ import { GoogleMaps } from '@ionic-native/google-maps';
     SplashScreen,
     Camera,
     GoogleMaps,
+    UserService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

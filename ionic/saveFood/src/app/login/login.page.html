@@ -15,7 +15,7 @@
         <ion-label position="floating">Password</ion-label>
         <ion-input type="password" [(ngModel)]="user.password"></ion-input>
       </ion-item>
-      <ion-button expand="block" color="tertiary" (click)="login()">Log in</ion-button>
+      <ion-button expand="block" color="tertiary" (click)="userService.login(user.email, user.password)">Log in</ion-button>
     </ion-card-content>
   </ion-card>
   <ion-card>
@@ -23,7 +23,7 @@
       Have no account?
     </ion-card-header>
     <ion-card-content>
-      <ion-button expand="block" (click)="goToRegisterPage()">Create account</ion-button>
+      <ion-button expand="block" (click)="userService.goToRegisterPage()">Create account</ion-button>
     </ion-card-content>
   </ion-card>
   

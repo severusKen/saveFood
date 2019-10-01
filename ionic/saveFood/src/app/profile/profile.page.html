@@ -11,14 +11,14 @@
         <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
       </ion-avatar>
       
-      <ion-list>
+      <ion-list *ngFor="let user of userService.currentUser | async">
         <ion-item>
           <ion-label position="fixed">Name</ion-label>
-          <ion-input>Full name</ion-input>
+          <ion-input>{{ user.displayName }}</ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="fixed">Email</ion-label>
-          <ion-input></ion-input>
+          <ion-input>{{ user.email }}</ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="fixed">Phone number</ion-label>

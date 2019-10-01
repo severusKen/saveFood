@@ -6,6 +6,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { ToastController, ModalController } from '@ionic/angular';
 import { RegcompletePage } from '../regcomplete/regcomplete.page';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,6 +18,7 @@ export class User {
 
 export class UserService {
   userList: any;
+  public currentUser: any;
   constructor(
     private storage: Storage,
     private afs: AngularFirestore,
@@ -26,6 +28,9 @@ export class UserService {
     public modalController: ModalController
   ) {
     this.userList = this.afs.collection('users');
+    this.getCurrentUserUID().then(uid => {
+      if (uid) this.getUserInfoBasedOnUID(uid);
+    })
   }
 
   /// Log in
@@ -53,7 +58,8 @@ export class UserService {
   }
 
   getUserInfoBasedOnUID(uid: string) {
-
+    this.currentUser = this.afs.collection('users', ref => ref.where('uid', '==', uid).limit(1)).valueChanges();
+    console.log(this.currentUser);
   }
 
   goToPage(url: string) {
@@ -119,6 +125,7 @@ export class UserService {
 
   public logout() {
     this.fAuth.auth.signOut();
+    this.storage.set('currentUID', undefined);
     this.router.navigate(['/login']);
   }
 }

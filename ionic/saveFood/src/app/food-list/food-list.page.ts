@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { UploadPage } from '../upload/upload.page';
 import { ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { FoodService } from '../services/food.service';
 
 @Component({
   selector: 'app-food-list',
@@ -11,15 +10,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./food-list.page.scss'],
 })
 export class FoodListPage implements OnInit {
-  foodList: Observable<any[]>;
-  constructor(private af: AngularFirestore, public modalController: ModalController,
-    public router: Router) {
-    this.foodList = this.af.collection('foodlist').valueChanges();
+  
+  constructor(
+    public modalController: ModalController,
+    public router: Router,
+    public foodService: FoodService) {
   }
 
   ngOnInit() {
-    
-
   }
 
   async openFoodDetail(food) {

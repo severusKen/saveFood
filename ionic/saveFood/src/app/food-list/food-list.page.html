@@ -2,6 +2,9 @@
   <ion-toolbar>
     <ion-title>Food list</ion-title>
   </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
   <ion-card *ngFor="let food of foodList | async" (click)="openFoodDetail(food)">

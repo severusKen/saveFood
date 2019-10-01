@@ -21,7 +21,7 @@ export class FoodDetailPage implements OnInit {
 
   async ngOnInit() {
     await this.platform.ready();
-    await this.loadMap();
+    //await this.loadMap();
     //console.log(this.data)
   }
 

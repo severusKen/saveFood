@@ -33,4 +33,8 @@ export class FoodListPage implements OnInit {
     });
     return await modal.present();
   }
+
+  getItems(event) {
+    
+  }
 }

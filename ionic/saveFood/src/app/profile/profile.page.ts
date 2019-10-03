@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
+import { ModalController } from '@ionic/angular';
+import { UpdateProfilePage } from '../update-profile/update-profile.page';
 
 @Component({
   selector: 'app-profile',
@@ -7,10 +9,19 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-
-  constructor(public userService: UserService) { }
+  constructor(public userService: UserService, public modalController: ModalController) { }
 
   ngOnInit() {
   }
 
+  async openUpdateForm(id: string) {
+    const modal = await this.modalController.create({
+      component: UpdateProfilePage,
+      componentProps: {
+        userID: id
+      },
+      backdropDismiss: false
+    });
+    return await modal.present();
+  }
 }

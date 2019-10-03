@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ToastController, ModalController } from '@ionic/angular';
 import { RegcompletePage } from '../regcomplete/regcomplete.page';
-
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,7 @@ export class User {
 export class UserService {
   userList: any;
   public currentUser: any;
+  public currentUserDocumentID: any;
   constructor(
     private storage: Storage,
     private afs: AngularFirestore,
@@ -29,7 +30,9 @@ export class UserService {
   ) {
     this.userList = this.afs.collection('users');
     this.getCurrentUserUID().then(uid => {
-      if (uid) this.getUserInfoBasedOnUID(uid);
+      if (uid) {
+        this.getUserInfoBasedOnUID(uid);
+      }
     })
   }
 
@@ -58,8 +61,18 @@ export class UserService {
   }
 
   getUserInfoBasedOnUID(uid: string) {
-    this.currentUser = this.afs.collection('users', ref => ref.where('uid', '==', uid).limit(1)).valueChanges();
-    console.log(this.currentUser);
+    this.currentUser = 
+      this.afs.collection('users', ref => ref.where('uid', '==', uid).limit(1))
+        .snapshotChanges()
+          .pipe(
+            map(actions => {
+              return actions.map(a => {
+                const data = a.payload.doc.data() as any;
+                const id = a.payload.doc.id;
+                return { id, ...data };
+              });
+            })
+          );
   }
 
   goToPage(url: string) {
@@ -118,7 +131,9 @@ export class UserService {
       displayName: _user.displayName,
       email: _user.email,
       phoneNumber: _user.phoneNumber,
-      photoUrl: _user.phoneNumber
+      photoUrl: _user.phoneNumber,
+      foodDonated: [],
+      foodReceived: []
     }
     this.userList.add(newUserData);
   }
@@ -127,5 +142,10 @@ export class UserService {
     this.fAuth.auth.signOut();
     this.storage.set('currentUID', undefined);
     this.router.navigate(['/login']);
+  }
+
+  public updateUserInfo(id, newUserData) {
+    const userDocument = this.afs.doc<any>(`users/${id}`);
+    return userDocument.update(newUserData);
   }
 }

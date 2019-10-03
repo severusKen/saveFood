@@ -6,32 +6,43 @@
 
 <ion-content>
   <ion-card>
-    <ion-card-content>
-      <ion-avatar>
-        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-      </ion-avatar>
-      
-      <ion-list *ngFor="let user of userService.currentUser | async">
+    <ion-card-content *ngFor="let user of userService.currentUser | async">
+      <img
+        [src]="user.photoUrl"
+        style="width: 100px; height: 100px; border-radius: 50%; margin: auto;"
+      />
+      <br>
+      <ion-list>
         <ion-item>
           <ion-label position="fixed">Name</ion-label>
-          <ion-input>{{ user.displayName }}</ion-input>
+          <ion-input inputmode="text" minLength="1" maxLength="20">{{ user.displayName }}</ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="fixed">Email</ion-label>
-          <ion-input>{{ user.email }}</ion-input>
+          <ion-input inputmode="email" pattern="email" minLength="5">{{ user.email }}</ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="fixed">Phone number</ion-label>
-          <ion-input></ion-input>
+          <ion-input inputmode="numeric" maxlength="13" minLength="8" pattern="">{{ user.phoneNumber }}</ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Food donated: </ion-label>
+          <ion-badge>{{ user.foodDonated ? user.foodDonated.length : 0 }}</ion-badge>
+        </ion-item>
+        <ion-item>
+          <ion-label>Food received: </ion-label>
+          <ion-badge>{{ user.foodReceived ? user.foodReceived.length : 0 }}</ion-badge>
         </ion-item>
       </ion-list>
-      
-    </ion-card-content>
-  </ion-card>
-  <ion-card>
-    <ion-card-content>
-      <ion-button expand="block">Update profile</ion-button>
-      <ion-button expand="block" color="danger" (click)="userService.logout()">Log out</ion-button>
+
+      <ion-button expand="block" 
+        (click)="openUpdateForm(user.id)">
+        Update profile
+      </ion-button>
+      <ion-button expand="block" color="danger" 
+        (click)="userService.logout()">
+        Log out
+      </ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>

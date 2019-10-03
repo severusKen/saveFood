@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Update your profile</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label position="fixed">Name</ion-label>
+          <ion-input [(ngModel)]="newInfo.displayName" inputmode="text" minLength="1" maxLength="20"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="fixed">Email</ion-label>
+          <ion-input
+            [(ngModel)]="newInfo.email"
+            inputmode="email"
+            pattern="email"
+            minLength="5"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="fixed">Phone number</ion-label>
+          <ion-input
+            [(ngModel)]="newInfo.phoneNumber"
+            inputmode="numeric"
+            maxlength="13"
+            minLength="8"
+            pattern="tel"
+          ></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-button expand="block" (click)="updateNewInformation()"
+        >Update now</ion-button
+      >
+    </ion-card-content>
+  </ion-card>
+</ion-content>

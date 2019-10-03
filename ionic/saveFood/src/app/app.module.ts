@@ -21,13 +21,16 @@ import { UploadPageModule } from './upload/upload.module';
 import { Camera } from '@ionic-native/camera/ngx';
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { UserService } from './services/user.service';
+import { UpdateProfilePage } from './update-profile/update-profile.page';
+import { UpdateProfilePageModule } from './update-profile/update-profile.module';
 @NgModule({
   declarations: [
     AppComponent
   ],
   entryComponents: [
     RegcompletePage,
-    UploadPage
+    UploadPage,
+    UpdateProfilePage
   ],
   imports: [
     BrowserModule, 
@@ -39,7 +42,8 @@ import { UserService } from './services/user.service';
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
     RegcompletePageModule,
-    UploadPageModule
+    UploadPageModule,
+    UpdateProfilePageModule
   ],
   providers: [
     StatusBar,

@@ -86,7 +86,8 @@ export class UserService {
   async showMsg(msg: string) {
     const toast = await this.toastController.create({
       message: msg,
-      duration: 2000
+      duration: 2000,
+      color: 'dark'
     });
     toast.present();
   }
@@ -102,7 +103,7 @@ export class UserService {
     }
     catch (err) {
       console.error(err);
-      this.showRegError(err.message);
+      this.showMsg(err.message);
     }
   }
 
@@ -115,14 +116,6 @@ export class UserService {
       this.router.navigate(['/login']);
     });
     return await modal.present();
-  }
-
-  async showRegError(msg: string) {
-    const toast = await this.toastController.create({
-      message: msg,
-      duration: 2000
-    });
-    toast.present();
   }
 
   addUserInfoToFireStore(_user: any) {
@@ -146,6 +139,8 @@ export class UserService {
 
   public updateUserInfo(id, newUserData) {
     const userDocument = this.afs.doc<any>(`users/${id}`);
-    return userDocument.update(newUserData);
+    userDocument.update(newUserData).then(() => {
+      this.showMsg('Your info has been updated.')
+    })
   }
 }

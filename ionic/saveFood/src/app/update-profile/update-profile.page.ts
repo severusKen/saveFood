@@ -20,9 +20,7 @@ export class UpdateProfilePage implements OnInit {
   }
 
   updateNewInformation() {
-    this.userService.updateUserInfo(this.userID, this.newInfo).then(res => {
-      console.log(res);
-    })
+    this.userService.updateUserInfo(this.userID, this.newInfo);
   }
 
   validateNewEmail() {

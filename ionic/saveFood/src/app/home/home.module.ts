@@ -26,12 +26,12 @@ import { HomePage } from './home.page';
             ]
           },
           {
-            path: 'test',
+            path: 'stash',
             children: [
               {
                 path: '',
                 loadChildren: () =>
-                  import('../test/test.module').then(m => m.TestPageModule)
+                  import('../stash/stash.module').then(m => m.StashPageModule)
               }
             ]
           },

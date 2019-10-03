@@ -7,9 +7,10 @@ const routes: Routes = [
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'intro', loadChildren: './intro/intro.module#IntroPageModule' },
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
-  { path: 'regcomplete', loadChildren: './regcomplete/regcomplete.module#RegcompletePageModule' },  { path: 'food-detail', loadChildren: './food-detail/food-detail.module#FoodDetailPageModule' },
-  { path: 'upload', loadChildren: './upload/upload.module#UploadPageModule' }
-
+  { path: 'regcomplete', loadChildren: './regcomplete/regcomplete.module#RegcompletePageModule' },
+  { path: 'food-detail', loadChildren: './food-detail/food-detail.module#FoodDetailPageModule' },
+  { path: 'upload', loadChildren: './upload/upload.module#UploadPageModule' },
+  { path: 'stash', loadChildren: './stash/stash.module#StashPageModule' }
 ];
 
 @NgModule({

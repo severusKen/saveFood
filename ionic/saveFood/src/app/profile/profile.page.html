@@ -7,23 +7,20 @@
 <ion-content>
   <ion-card>
     <ion-card-content *ngFor="let user of userService.currentUser | async">
-      <img
-        [src]="user.photoUrl"
-        style="width: 100px; height: 100px; border-radius: 50%; margin: auto;"
-      />
+      <img [src]="user.photoUrl" style="width: 100px; height: 100px; border-radius: 50%; margin: auto;"/>
       <br>
       <ion-list>
         <ion-item>
           <ion-label position="fixed">Name</ion-label>
-          <ion-input inputmode="text" minLength="1" maxLength="20">{{ user.displayName }}</ion-input>
+          <ion-input>{{ user.displayName }}</ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="fixed">Email</ion-label>
-          <ion-input inputmode="email" pattern="email" minLength="5">{{ user.email }}</ion-input>
+          <ion-input>{{ user.email }}</ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="fixed">Phone number</ion-label>
-          <ion-input inputmode="numeric" maxlength="13" minLength="8" pattern="">{{ user.phoneNumber }}</ion-input>
+          <ion-input>{{ user.phoneNumber }}</ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Food donated: </ion-label>

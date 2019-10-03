@@ -31,6 +31,7 @@ export class UserService {
     this.userList = this.afs.collection('users');
     this.getCurrentUserUID().then(uid => {
       if (uid) {
+        console.log('Upadting current user info');
         this.getUserInfoBasedOnUID(uid);
       }
     })
@@ -124,7 +125,7 @@ export class UserService {
       displayName: _user.displayName,
       email: _user.email,
       phoneNumber: _user.phoneNumber,
-      photoUrl: _user.phoneNumber,
+      photoUrl: 'https://res.cloudinary.com/canada-credit-card/image/upload/v1570086738/cat.png',
       foodDonated: [],
       foodReceived: []
     }

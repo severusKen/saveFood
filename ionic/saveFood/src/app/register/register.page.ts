@@ -13,10 +13,18 @@ export class User {
 })
 export class RegisterPage implements OnInit {
   public user: User = new User();
-  
+
   constructor(public userService: UserService) {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    console.log('Left Register page');
+    this.user = {
+      email: '',
+      password: ''
+    }
   }
 }

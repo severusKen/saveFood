@@ -9,7 +9,9 @@ import { UpdateProfilePage } from '../update-profile/update-profile.page';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  constructor(public userService: UserService, public modalController: ModalController) { }
+  constructor(public userService: UserService, public modalController: ModalController) {
+
+  }
 
   ngOnInit() {
   }

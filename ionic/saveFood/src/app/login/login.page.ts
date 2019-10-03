@@ -12,9 +12,17 @@ export class User {
 })
 export class LoginPage implements OnInit {
 
-  public user:User = new User();
-  constructor(public userService: UserService) {}
+  public user: User = new User();
+  constructor(public userService: UserService) { }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    console.log('Left Login page');
+    this.user = {
+      email: '',
+      password: ''
+    }
   }
 }

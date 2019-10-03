@@ -32,7 +32,11 @@ export class FoodListPage implements OnInit {
     return await modal.present();
   }
 
-  getItems(event) {
-    
+  getItems(event: any) {
+    this.foodService.resetFoodList();
+    const keyword = event.target.value;
+    if (keyword && keyword.trim() != '') {
+      this.foodService.getItemsBasedOnSearchText(keyword);
+    };
   }
 }

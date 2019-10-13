@@ -10,7 +10,12 @@ import { UpdateProfilePage } from '../update-profile/update-profile.page';
 })
 export class ProfilePage implements OnInit {
   constructor(public userService: UserService, public modalController: ModalController) {
-
+    this.userService.getCurrentUserUID().then(uid => {
+      if (uid) {
+        console.log('Upadting current user info');
+        this.userService.getUserInfoBasedOnUID(uid);
+      }
+    })
   }
 
   ngOnInit() {

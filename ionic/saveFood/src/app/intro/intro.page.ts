@@ -10,6 +10,12 @@ import { Storage } from '@ionic/storage';
 export class IntroPage implements OnInit {
   isSlideShowing: boolean = false;
   constructor(private storage: Storage, public router: Router) {
+    
+  }
+
+
+
+  ngOnInit() {
     this.storage.get('showSlide').then((val) => {
       if (val === undefined) {
         console.info('App is running for the first time after installation => Show intro slide');
@@ -20,11 +26,9 @@ export class IntroPage implements OnInit {
       else {
         console.info('This is not the first time load, show slide would not be loaded');
         // Navigate for home page
+        this.router.navigate(['/login']);
       }
     })
-  }
-
-  ngOnInit() {
   }
 
 }

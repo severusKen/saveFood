@@ -29,12 +29,6 @@ export class UserService {
     public modalController: ModalController
   ) {
     this.userList = this.afs.collection('users');
-    this.getCurrentUserUID().then(uid => {
-      if (uid) {
-        console.log('Upadting current user info');
-        this.getUserInfoBasedOnUID(uid);
-      }
-    })
   }
 
   /// Log in
@@ -62,6 +56,7 @@ export class UserService {
   }
 
   getUserInfoBasedOnUID(uid: string) {
+    console.log('Getting User information');
     this.currentUser = 
       this.afs.collection('users', ref => ref.where('uid', '==', uid).limit(1))
         .snapshotChanges()

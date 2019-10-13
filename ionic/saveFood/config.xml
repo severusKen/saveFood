@@ -102,4 +102,6 @@
     <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
         <string>Used to take pictures</string>
     </edit-config>
+    <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="***" />
+    <preference name="GOOGLE_MAPS_IOS_API_KEY" value="****" />
 </widget>

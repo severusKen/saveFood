@@ -11,10 +11,17 @@ export class FoodService {
     this.resetFoodList();
   }
 
+  /**
+   * @description Get food list collection from firebase
+   */
   resetFoodList() {
     this.foodList = this.af.collection('foodlist').valueChanges();
   }
 
+  /**
+   * @description Filter the food list based on given tags/keywords
+   * @param keyword ex: "Chicken, Pork"
+   */
   public getItemsBasedOnSearchText(keyword: string) {
     this.foodList = this.foodList.pipe(
       map((foods:any) => foods.filter(

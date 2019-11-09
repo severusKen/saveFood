@@ -28,10 +28,15 @@ export class UserService {
     public toastController: ToastController,
     public modalController: ModalController
   ) {
+    // Get [users] collection from FIrebase
     this.userList = this.afs.collection('users');
   }
 
-  /// Log in
+  /**
+   * @description log in function
+   * @param email User email
+   * @param password User password
+   */
   public async login(email: string, password: string) {
     try {
       const signin = await this.fAuth.auth.signInWithEmailAndPassword(email, password);
@@ -47,14 +52,25 @@ export class UserService {
     }
   }
 
+  /**
+   * @description Save current user's id to local storage
+   * @param uid User ID
+   */
   saveCurrentUserUID(uid: string) {
     this.storage.set('currentUID', uid);
   }
 
+  /**
+   * @description Get current user ID from ocal storage
+   */
   async getCurrentUserUID() {
     return await this.storage.get('currentUID');
   }
 
+  /**
+   * @description Based on given current user's id, get all the information of that user
+   * @param uid User ID
+   */
   getUserInfoBasedOnUID(uid: string) {
     console.log('Getting User information');
     this.currentUser = 
@@ -71,14 +87,25 @@ export class UserService {
           );
   }
 
+  /**
+   * @description Redirect to a page by given url
+   * @param url Target page
+   */
   goToPage(url: string) {
     this.router.navigate([url]);
   }
 
+  /**
+   * @description Go to [page/register.html]
+   */
   goToRegisterPage() {
     this.router.navigate(['/register']);
   }
 
+  /**
+   * @description Show a popup that displays the given message
+   * @param msg Message
+   */
   async showMsg(msg: string) {
     const toast = await this.toastController.create({
       message: msg,
@@ -88,7 +115,11 @@ export class UserService {
     toast.present();
   }
 
-  //// Registration
+  /**
+   * @description Register a new user, based on email & password, to Firebase's User database
+   * @param email User email
+   * @param password User's new password
+   */
   public async register(email: string, password: string) {
     try {
       const registration = await this.fAuth.auth.createUserWithEmailAndPassword(email, password);
@@ -103,6 +134,9 @@ export class UserService {
     }
   }
 
+  /**
+   * @description Show a modal indicating a successful registration
+   */
   async notifyToConfirmEmail() {
     const modal = await this.modalController.create({
       component: RegcompletePage,
@@ -114,6 +148,10 @@ export class UserService {
     return await modal.present();
   }
 
+  /**
+   * @description Add user record to database
+   * @param _user User's information in JSON format
+   */
   addUserInfoToFireStore(_user: any) {
     const newUserData = {
       uid: _user.uid,
@@ -127,12 +165,20 @@ export class UserService {
     this.userList.add(newUserData);
   }
 
+  /**
+   * @description Log out
+   */
   public logout() {
     this.fAuth.auth.signOut();
     this.storage.set('currentUID', undefined);
     this.router.navigate(['/login']);
   }
 
+  /**
+   * @description Update the information of current user
+   * @param id User's ID
+   * @param newUserData User's information in JSON format
+   */
   public updateUserInfo(id, newUserData) {
     const userDocument = this.afs.doc<any>(`users/${id}`);
     userDocument.update(newUserData).then(() => {

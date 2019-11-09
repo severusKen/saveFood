@@ -21,6 +21,10 @@ export class ProfilePage implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * @description Based on UserID, open a modal that allows user to modify his/her information
+   * @param id user id
+   */
   async openUpdateForm(id: string) {
     const modal = await this.modalController.create({
       component: UpdateProfilePage,

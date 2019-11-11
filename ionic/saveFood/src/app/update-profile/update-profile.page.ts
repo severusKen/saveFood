@@ -11,8 +11,7 @@ export class UpdateProfilePage implements OnInit {
   @Input() userID: string;
   newInfo: any = {
     displayName: '',
-    phoneNumber: '',
-    email: ''
+    phoneNumber: ''
   }
   constructor(public modalCtrl: ModalController, public userService: UserService) { }
 

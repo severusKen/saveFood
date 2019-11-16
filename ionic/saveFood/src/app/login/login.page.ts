@@ -18,6 +18,9 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * @description CLear the email and password after leaving this page
+   */
   ngAfterViewInit() {
     console.log('Left Login page');
     this.user = {

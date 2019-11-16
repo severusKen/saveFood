@@ -12,10 +12,30 @@
 <ion-content>
   <ion-card>
     <ion-card-content>
+      <input
+        id="avatarUploader"
+        type="file"
+        accept="image/*"
+        (change)="imageService.addImageToPage($event)"
+      />
+      <img
+        src=""
+        id="avatarImage"
+        style="width: 80vw; height: 80vw; display: none;"
+      />
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
       <ion-list>
         <ion-item>
           <ion-label position="fixed">Name</ion-label>
-          <ion-input [(ngModel)]="newInfo.displayName" inputmode="text" minLength="1" maxLength="20"></ion-input>
+          <ion-input
+            [(ngModel)]="newInfo.displayName"
+            inputmode="text"
+            minLength="1"
+            maxLength="20"
+          ></ion-input>
         </ion-item>
         <!--
         <ion-item>

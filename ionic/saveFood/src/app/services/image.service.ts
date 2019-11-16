@@ -19,17 +19,17 @@ export class ImageService {
     //this.currentImage = URL.createObjectURL(image);
   }
 
-  public addFoodImageToPage(event: any) {
+  public addImageToPage(event: any) {
     console.log(event)
-    const foodImage = this.getImageSrc(event);
-    if (!foodImage) return;
-    const foodImageData = URL.createObjectURL(foodImage);
-    console.log(foodImageData);
+    const image = this.getImageSrc(event);
+    if (!image) return;
+    const imageData = URL.createObjectURL(image);
+    console.log(imageData);
     if (event.currentTarget.id == 'foodUploader') {
-      this.createNewFoodImage(foodImageData);
+      this.createNewFoodImage(imageData);
     }
     if (event.currentTarget.id == 'avatarUploader') {
-
+      this.createNewAvatarImage(imageData)
     }
   }
 
@@ -39,9 +39,14 @@ export class ImageService {
     foodImageHolder.style.display = '';
   }
 
-  createNewAvatarImage() {
-    
+  createNewAvatarImage(src: string) {
+    const foodImageHolder = <HTMLImageElement>document.getElementById('avatarImage');
+    foodImageHolder.src = src;
+    foodImageHolder.style.display = '';
   }
 
+  cropImage() {
+    
+  }
   
 }

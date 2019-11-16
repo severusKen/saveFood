@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { UserService } from '../services/user.service';
+import { ImageService } from '../services/image.service';
 
 @Component({
   selector: 'app-update-profile',
@@ -13,7 +14,7 @@ export class UpdateProfilePage implements OnInit {
     displayName: '',
     phoneNumber: ''
   }
-  constructor(public modalCtrl: ModalController, public userService: UserService) { }
+  constructor(public modalCtrl: ModalController, public userService: UserService, public imageService: ImageService) { }
 
   ngOnInit() {
   }

@@ -12,18 +12,14 @@
 <ion-content class="ion-padding">
   <ion-card>
     <ion-card-content>
-      <input
-        id="foodUploader"
-        type="file"
-        accept="image/*"
-        (change)="imageService.addImageToPage($event)"
-      />
+      <input id="foodUploader" type="file" accept="image/*" (change)="imageService.addImageToPage($event)" />
       <img src="" id="foodImage" style="width: 80vw; height: 80vw; display: none;" />
     </ion-card-content>
   </ion-card>
   <ion-card>
-    <ion-card-header>Location</ion-card-header>
     <ion-card-content>
+      <ion-input placeholder="Enter food location" [(ngModel)]="newFood.location"></ion-input>
+      <ion-list></ion-list>
       <!--
       <ion-button expand="block">Use current location</ion-button>
       <ion-button expand="block">Set location on map</ion-button>-->
@@ -32,14 +28,18 @@
   <ion-card>
     <ion-card-header>Food info</ion-card-header>
     <ion-card-content>
-      <ion-item>
-        <ion-label>Name</ion-label>
-        <ion-input></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label>Description</ion-label>
-        <ion-input></ion-input>
-      </ion-item>
+      <ion-input placeholder="Name (ex: Donut)" [(ngModel)]="newFood.name"></ion-input>
+      <ion-input placeholder="Description (optional)" [(ngModel)]="newFood.description"></ion-input>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <ion-button expand="block" (click)="donateFood()">
+        Donate
+      </ion-button>
+      <ion-button expand="block" color="danger" (click)="dismiss()">
+        Cancel
+      </ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>

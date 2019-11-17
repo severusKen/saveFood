@@ -30,11 +30,8 @@ export class FoodService {
     )
   }
 
-  getYourDonatedFood() {
-
-  }
-
-  getYourReceivingFood() {
-    
+  uploadFood(data):void {
+    const food_database = this.af.collection('foodlist');
+    food_database.add(data);
   }
 }

@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImageService {
 
-  constructor() { }
+  avatarImage: any = null;
+  foodImage: any = null;
+  constructor(private storage: AngularFireStorage, public userService: UserService) { }
 
   /**
    * @description Get image that is uploaded from <input#file>
@@ -16,7 +20,6 @@ export class ImageService {
     const image = event.srcElement.files[0];
     if (!image.type.match(/^image\//)) return;
     return image;
-    //this.currentImage = URL.createObjectURL(image);
   }
 
   public addImageToPage(event: any) {
@@ -27,9 +30,11 @@ export class ImageService {
     console.log(imageData);
     if (event.currentTarget.id == 'foodUploader') {
       this.createNewFoodImage(imageData);
+      this.foodImage = image;
     }
     if (event.currentTarget.id == 'avatarUploader') {
-      this.createNewAvatarImage(imageData)
+      this.createNewAvatarImage(imageData);
+      this.avatarImage = image;
     }
   }
 
@@ -46,7 +51,33 @@ export class ImageService {
   }
 
   cropImage() {
-    
+
   }
-  
+
+  uploadAvatar(id) {
+    if (!id) return;
+    const filePath = `avatars/${id}`;
+    const uploadProcess = this.storage.upload(filePath, this.avatarImage).then(() => {
+      console.log('uploaded finished')
+      this.avatarImage = null;
+      const downloadProcess = this.getAvatar(filePath).subscribe(url => {
+        this.userService.updateUserAvatar(id, url);
+      })
+      setTimeout(() => { downloadProcess.unsubscribe()}, 1000);
+    });
+  }
+
+  getAvatar(avatarPath: string) {
+    const ref = this.storage.ref(avatarPath);
+    return ref.getDownloadURL();
+  }
+
+  uploadFoodImage() {
+    this.userService.getCurrentUserUID().then(uid => {
+      if (uid) {
+        const filePath = `./foods/${uid}`;
+        const uploadProcess = this.storage.upload(filePath, this.foodImage).then(() => this.foodImage = null);
+      }
+    })
+  }
 }

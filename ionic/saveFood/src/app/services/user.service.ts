@@ -63,7 +63,7 @@ export class UserService {
   /**
    * @description Get current user ID from ocal storage
    */
-  async getCurrentUserUID() {
+  public async getCurrentUserUID() {
     return await this.storage.get('currentUID');
   }
 
@@ -180,8 +180,25 @@ export class UserService {
    * @param newUserData User's information in JSON format
    */
   public updateUserInfo(id, newUserData) {
+    if (!id) return;
+    console.log(newUserData);
+    if (!newUserData) return;
+    const hasName = newUserData.displayName;
+    const hasPhoneNumber = newUserData.phoneNumber;
+    if (!hasName && !hasPhoneNumber) return;
+    var data = newUserData;
+    if (hasName && !hasPhoneNumber) data = { displayName: hasName };
+    if (!hasName && hasPhoneNumber) data = { phoneNumber: hasPhoneNumber };
     const userDocument = this.afs.doc<any>(`users/${id}`);
-    userDocument.update(newUserData).then(() => {
+    userDocument.update(data).then(() => {
+      this.showMsg('Your info has been updated.')
+    })
+  }
+
+  public updateUserAvatar(id, userAvatarPath) {
+    if (!id || !userAvatarPath) return;
+    const userDocument = this.afs.doc<any>(`users/${id}`);
+    userDocument.update({ photoUrl: userAvatarPath }).then(() => {
       this.showMsg('Your info has been updated.')
     })
   }

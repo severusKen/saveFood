@@ -1,6 +1,7 @@
 export interface Food {
     id: number;
     donorUid: string;
+    receiverId: string;
     foodType: string;
     status: string;
     thumbnail: string;

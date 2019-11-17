@@ -21,18 +21,7 @@ export class UpdateProfilePage implements OnInit {
 
   updateNewInformation() {
     this.userService.updateUserInfo(this.userID, this.newInfo);
-  }
-
-  validateNewEmail() {
-
-  }
-
-  validateNewPhoneNumber() {
-
-  }
-
-  validateNewDisplayName() {
-
+    if (this.imageService.avatarImage) this.imageService.uploadAvatar(this.userID);
   }
 
   dismiss() {

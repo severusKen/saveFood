@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, Platform } from '@ionic/angular';
 import { GoogleMaps, GoogleMap, Environment } from '@ionic-native/google-maps/ngx';
 import { ActivatedRoute } from '@angular/router';
+import { FoodService } from '../services/food.service';
 @Component({
   selector: 'app-food-detail',
   templateUrl: './food-detail.page.html',
@@ -11,7 +12,10 @@ export class FoodDetailPage implements OnInit {
   @Input() data: any;
   map: GoogleMap;
   food: any = {};
-  constructor(public modalCtrl: ModalController, private platform: Platform, public activatedRoute: ActivatedRoute) {
+  constructor(public modalCtrl: ModalController,
+              private platform: Platform,
+              public activatedRoute: ActivatedRoute,
+              public foodService: FoodService) {
     let foodSub = activatedRoute.queryParams.subscribe((res) => {
       console.log(res);
       this.food = res;

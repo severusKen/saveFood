@@ -80,7 +80,7 @@ export class ImageService {
       this.userService.showMsg('A picture of food is required.')
       return;
     }
-    this.userService.getCurrentUserUID().then(uid => {
+    return this.userService.getCurrentUserUID().then(uid => {
       if (!uid) return;
       const fileName = this.generateRandomFileName();
       const filePath = `foods/${uid}/${fileName}`;
@@ -97,8 +97,11 @@ export class ImageService {
         this.foodImage = null;
         const downloadProcess = this.getImagePath(filePath).subscribe(url => {
           data.thumbnail = url;
-          this.foodService.uploadFood(data);
-        })
+          this.foodService.uploadFood(data).then(() => {
+            this.foodImage = null;
+            this.userService.showMsg('Food uploaded successfully!')
+          });
+        });
         setTimeout(() => { downloadProcess.unsubscribe() }, 1000);
       });
     })

@@ -30,8 +30,8 @@ export class FoodService {
     )
   }
 
-  uploadFood(data):void {
+  uploadFood(data) {
     const food_database = this.af.collection('foodlist');
-    food_database.add(data);
+    return food_database.add(data);
   }
 }

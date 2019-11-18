@@ -32,7 +32,7 @@ import { UpdateProfilePageModule } from './update-profile/update-profile.module'
     UpdateProfilePage
   ],
   imports: [
-    BrowserModule, 
+    BrowserModule,
     IonicModule.forRoot(), 
     AppRoutingModule,
     IonicStorageModule.forRoot(),

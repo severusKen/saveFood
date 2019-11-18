@@ -15,7 +15,11 @@ export class FoodService {
    * @description Get food list collection from firebase
    */
   resetFoodList() {
-    this.foodList = this.af.collection('foodlist').valueChanges();
+    this.foodList = this.af.collection('foodlist').valueChanges().pipe(
+      map((foods:any) => foods.filter(
+        (food:any) => (food['receiverUid'] === '' || !food['receiverUid'])
+      )),
+    )
   }
 
   /**
@@ -34,4 +38,10 @@ export class FoodService {
     const food_database = this.af.collection('foodlist');
     return food_database.add(data);
   }
+
+  claimFood() {
+
+  }
+
+  
 }

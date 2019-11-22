@@ -14,4 +14,16 @@ export class LocationService {
     return fetch(_url);
   }
 
+  getMapSnapshot(address: string) {
+
+  }
+
+  openInGoogleMap() {
+
+  }
+
+  openInAppleMap() {
+    
+  }
+
 }

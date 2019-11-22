@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
-  <ion-card *ngFor="let food of foodService.foodList | async" (click)="openFoodDetail(food)">
+  <ion-card *ngFor="let food of foodService.foodList | async" (click)="openFoodDetail(food)" style="width: 80vw">
     <img src="{{ food.thumbnail }}" />
     <ion-card-header>
       <ion-card-subtitle>{{ food.foodType }}</ion-card-subtitle>

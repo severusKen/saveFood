@@ -18,7 +18,6 @@ import { RegcompletePage } from './regcomplete/regcomplete.page';
 import { UploadPage } from '../app/upload/upload.page';
 import { RegcompletePageModule } from './regcomplete/regcomplete.module';
 import { UploadPageModule } from './upload/upload.module';
-import { GoogleMaps } from '@ionic-native/google-maps';
 import { UserService } from './services/user.service';
 import { UpdateProfilePage } from './update-profile/update-profile.page';
 import { UpdateProfilePageModule } from './update-profile/update-profile.module';
@@ -47,7 +46,6 @@ import { UpdateProfilePageModule } from './update-profile/update-profile.module'
   providers: [
     StatusBar,
     SplashScreen,
-    GoogleMaps,
     UserService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

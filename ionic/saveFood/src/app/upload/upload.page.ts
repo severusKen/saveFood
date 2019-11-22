@@ -40,7 +40,8 @@ export class UploadPage implements OnInit {
           location: '',
           name: '',
           description: ''
-        }
+        };
+        document.getElementById('foodImage').setAttribute('src', '');
       }, 100);
     })
   }

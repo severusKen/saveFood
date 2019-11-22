@@ -18,8 +18,8 @@ export class FoodService {
    */
   resetFoodList() {
     this.foodList = this.af.collection('foodlist').valueChanges().pipe(
-      map((foods:any) => foods.filter(
-        (food:any) => (food['receiverUid'] === '' || !food['receiverUid']) // Only show food that none has claimed yet
+      map((foods: any) => foods.filter(
+        (food: any) => (food['receiverUid'] === '' || !food['receiverUid']) // Only show food that none has claimed yet
       )),
     )
   }
@@ -30,8 +30,8 @@ export class FoodService {
    */
   public getItemsBasedOnSearchText(keyword: string) {
     this.foodList = this.foodList.pipe(
-      map((foods:any) => foods.filter(
-        (food:any) => food['foodType'].toLowerCase().indexOf(keyword.toLowerCase()) > -1
+      map((foods: any) => foods.filter(
+        (food: any) => food['foodType'].toLowerCase().indexOf(keyword.toLowerCase()) > -1
       )),
     )
   }
@@ -44,7 +44,7 @@ export class FoodService {
   updateFoodInformation(id, data) {
     const foodDocument = this.af.doc<any>(`foodlist/${id}`);
     foodDocument.update(data).then(() => {
-      
+
     })
   }
 
@@ -53,14 +53,14 @@ export class FoodService {
       if (!uid) return;
       this.getFoodDocumentId(food.id).subscribe(res => {
         console.log(res)
-        this.updateFoodInformation(res[0]['docId'], { receiverUid: uid});
+        this.updateFoodInformation(res[0]['docId'], { receiverUid: uid });
       })
     })
   }
 
   getFoodDocumentId(foodId) {
     return this.af.collection('foodlist', ref => ref.where('id', '==', foodId).limit(1))
-    .snapshotChanges()
+      .snapshotChanges()
       .pipe(
         map(actions => {
           return actions.map(a => {
@@ -70,5 +70,22 @@ export class FoodService {
           });
         })
       );
+  }
+
+  getFoodInStash() {
+    this.userService.getCurrentUserUID().then(uid => {
+      if (!uid) return;
+      return this.af.collection('foodlist', ref => ref.where('receiverUid', '==', uid).limit(1))
+        .snapshotChanges()
+        .pipe(
+          map(actions => {
+            return actions.map(a => {
+              const data = a.payload.doc.data() as any;
+              const docId = a.payload.doc.id;
+              return { docId, ...data };
+            });
+          })
+        );
+    })
   }
 }

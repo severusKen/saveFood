@@ -9,6 +9,10 @@ import { VirtualTimeScheduler } from 'rxjs';
 })
 export class FoodService {
   public foodList: any;
+  public donatedFood: any;
+  public receivingFood: any;
+  public receivedFood: any;
+
   constructor(private af: AngularFirestore, public userService: UserService) {
     this.resetFoodList();
   }
@@ -21,7 +25,8 @@ export class FoodService {
       map((foods: any) => foods.filter(
         (food: any) => (food['receiverUid'] === '' || !food['receiverUid']) // Only show food that none has claimed yet
       )),
-    )
+    );
+    this.getDonatedFood();
   }
 
   /**
@@ -72,10 +77,29 @@ export class FoodService {
       );
   }
 
+  /*
   getFoodInStash() {
     this.userService.getCurrentUserUID().then(uid => {
       if (!uid) return;
       return this.af.collection('foodlist', ref => ref.where('receiverUid', '==', uid).limit(1))
+        .snapshotChanges()
+        .pipe(
+          map(actions => {
+            return actions.map(a => {
+              const data = a.payload.doc.data() as any;
+              const docId = a.payload.doc.id;
+              return { docId, ...data };
+            });
+          })
+        );
+    })
+  }
+  */
+
+  getDonatedFood() {
+    this.userService.getCurrentUserUID().then(uid => {
+      if (!uid) return;
+      return this.af.collection('foodlist', ref => ref.where('donorUid', '==', uid))
         .snapshotChanges()
         .pipe(
           map(actions => {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FoodService } from '../services/food.service';
 
 @Component({
   selector: 'app-stash',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StashPage implements OnInit {
 
-  constructor() { }
+  constructor(public foodService: FoodService) { }
 
   ngOnInit() {
   }

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { UserService } from './user.service';
-import { VirtualTimeScheduler } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +15,7 @@ export class FoodService {
   constructor(private af: AngularFirestore, public userService: UserService) {
     this.resetFoodList();
     this.getDonatedFood();
+    this.getReceivingFood();
   }
 
   /**
@@ -77,25 +77,20 @@ export class FoodService {
       );
   }
 
-  /*
-  getFoodInStash() {
+  /**
+   * @description Show the food that user is about to claim
+   * @note Only one food can be claim at a time
+   */
+  getReceivingFood() {
     this.userService.getCurrentUserUID().then(uid => {
       if (!uid) return;
-      return this.af.collection('foodlist', ref => ref.where('receiverUid', '==', uid).limit(1))
-        .snapshotChanges()
-        .pipe(
-          map(actions => {
-            return actions.map(a => {
-              const data = a.payload.doc.data() as any;
-              const docId = a.payload.doc.id;
-              return { docId, ...data };
-            });
-          })
-        );
+      this.receivingFood = this.af.collection('foodlist', ref => ref.where('receiverUid', '==', uid)).valueChanges()
     })
   }
-  */
 
+  /**
+   * @description Show the list of user's donated food
+   */
   getDonatedFood() {
     this.userService.getCurrentUserUID().then(uid => {
       console.log('wtf')

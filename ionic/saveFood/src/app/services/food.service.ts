@@ -20,6 +20,7 @@ export class FoodService {
 
   /**
    * @description Get food list collection from firebase
+   * @note This function is used like a way to "refresh" the list
    */
   resetFoodList() {
     this.foodList = this.af.collection('foodlist').valueChanges().pipe(
@@ -41,11 +42,20 @@ export class FoodService {
     )
   }
 
+  /**
+   * @description Add new record to food database
+   * @param data new food data in object format
+   */
   uploadFood(data) {
     const food_database = this.af.collection('foodlist');
     return food_database.add(data);
   }
 
+  /**
+   * @description Modify a record in food database
+   * @param id ID of food record
+   * @param data New data in Object format { key: newValue }
+   */
   updateFoodInformation(id, data) {
     const foodDocument = this.af.doc<any>(`foodlist/${id}`);
     foodDocument.update(data).then(() => {
@@ -53,6 +63,10 @@ export class FoodService {
     })
   }
 
+  /**
+   * @description Modify the selected food's receiverUid to current user's UID, if he decides to claim the food
+   * @param food Food record => Used to extract food Id for modification
+   */
   claimFood(food) {
     this.userService.getCurrentUserUID().then(uid => {
       if (!uid) return;
@@ -63,6 +77,11 @@ export class FoodService {
     })
   }
 
+
+  /**
+   * @description Based on food, get food's document ID (for modification in firebase data)
+   * @param foodId food.id
+   */
   getFoodDocumentId(foodId) {
     return this.af.collection('foodlist', ref => ref.where('id', '==', foodId).limit(1))
       .snapshotChanges()
@@ -84,7 +103,11 @@ export class FoodService {
   getReceivingFood() {
     this.userService.getCurrentUserUID().then(uid => {
       if (!uid) return;
-      this.receivingFood = this.af.collection('foodlist', ref => ref.where('receiverUid', '==', uid)).valueChanges()
+      this.receivingFood = 
+        this.af.collection('foodlist', 
+          ref => ref.where('receiverUid', '==', uid)
+            .where('status', '==', 'pending'))
+              .valueChanges()
     })
   }
 

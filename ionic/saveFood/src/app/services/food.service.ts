@@ -15,6 +15,7 @@ export class FoodService {
 
   constructor(private af: AngularFirestore, public userService: UserService) {
     this.resetFoodList();
+    this.getDonatedFood();
   }
 
   /**
@@ -26,7 +27,6 @@ export class FoodService {
         (food: any) => (food['receiverUid'] === '' || !food['receiverUid']) // Only show food that none has claimed yet
       )),
     );
-    this.getDonatedFood();
   }
 
   /**
@@ -98,18 +98,10 @@ export class FoodService {
 
   getDonatedFood() {
     this.userService.getCurrentUserUID().then(uid => {
+      console.log('wtf')
       if (!uid) return;
-      return this.af.collection('foodlist', ref => ref.where('donorUid', '==', uid))
-        .snapshotChanges()
-        .pipe(
-          map(actions => {
-            return actions.map(a => {
-              const data = a.payload.doc.data() as any;
-              const docId = a.payload.doc.id;
-              return { docId, ...data };
-            });
-          })
-        );
-    })
+      this.donatedFood = this.af.collection('foodlist', ref => ref.where('donorUid', '==', uid)).valueChanges();
+      console.log(this.donatedFood)
+    });
   }
 }

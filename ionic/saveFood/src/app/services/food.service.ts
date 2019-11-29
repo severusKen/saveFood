@@ -15,9 +15,9 @@ export class FoodService {
   public receivingFood: any;
   public receivedFood: any;
 
-  constructor(private af: AngularFirestore, 
-              public userService: UserService,
-              public toastController: ToastController) {
+  constructor(private af: AngularFirestore,
+    public userService: UserService,
+    public toastController: ToastController) {
     this.resetFoodList();
     this.getDonatedFood();
     this.getReceivingFood();
@@ -28,17 +28,17 @@ export class FoodService {
    * @note This function is used like a way to "refresh" the list
    */
   resetFoodList() {
-    this.foodList = 
-    this.af.collection('foodlist', ref => ref.where('receiverUid', '==', '')).snapshotChanges()
-      .pipe(
-        map(actions => {
-          return actions.map(a => {
-            const data = a.payload.doc.data() as any;
-            const docId = a.payload.doc.id;
-            return { docId, ...data };
-          });
-        })
-      );
+    this.foodList =
+      this.af.collection('foodlist', ref => ref.where('receiverUid', '==', '')).snapshotChanges()
+        .pipe(
+          map(actions => {
+            return actions.map(a => {
+              const data = a.payload.doc.data() as any;
+              const docId = a.payload.doc.id;
+              return { docId, ...data };
+            });
+          })
+        );
   }
 
   /**
@@ -93,8 +93,17 @@ export class FoodService {
   getReceivingFood() {
     this.userService.getCurrentUserUID().then(uid => {
       if (!uid) return;
-      this.receivingFood = 
-        this.af.collection('foodlist', ref => ref.where('receiverUid', '==', uid)).valueChanges();
+      this.receivingFood =
+        this.af.collection('foodlist', ref => ref.where('receiverUid', '==', uid)).snapshotChanges()
+          .pipe(
+            map(actions => {
+              return actions.map(a => {
+                const data = a.payload.doc.data() as any;
+                const docId = a.payload.doc.id;
+                return { docId, ...data };
+              });
+            })
+          );
     })
   }
 
@@ -104,7 +113,16 @@ export class FoodService {
   getDonatedFood() {
     this.userService.getCurrentUserUID().then(uid => {
       if (!uid) return;
-      this.donatedFood = this.af.collection('foodlist', ref => ref.where('donorUid', '==', uid)).valueChanges();
+      this.donatedFood = this.af.collection('foodlist', ref => ref.where('donorUid', '==', uid)).snapshotChanges()
+        .pipe(
+          map(actions => {
+            return actions.map(a => {
+              const data = a.payload.doc.data() as any;
+              const docId = a.payload.doc.id;
+              return { docId, ...data };
+            });
+          })
+        );
     });
   }
 
@@ -120,7 +138,7 @@ export class FoodService {
     });
     toast.present();
   }
-  
+
   cancelFoodClaim(docId: string) {
     return this.userService.getCurrentUserUID().then(uid => {
       if (!uid) return;

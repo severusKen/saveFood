@@ -9,20 +9,28 @@ import { FoodService } from '../services/food.service';
 })
 export class FoodDetailPage implements OnInit {
   @Input() data: any;
+  isPending: boolean;
   food: any = {};
   constructor(public modalCtrl: ModalController,
               private platform: Platform,
               public activatedRoute: ActivatedRoute,
               public foodService: FoodService) {
     let foodSub = activatedRoute.queryParams.subscribe((res) => {
-      console.log(res);
       this.food = res;
+      this.isPending = (this.food.status == 'pending') ? true : false;
+      console.log(this.food)
     });
-    setTimeout(() => { foodSub.unsubscribe(); console.log('Unsubbed fetching food detail'); }, 3000);
+    setTimeout(() => { foodSub.unsubscribe(); console.log('Unsubbed fetching food detail'); }, 1000);
   }
 
   async ngOnInit() {
     await this.platform.ready();
+  }
+
+  claimFood() {
+    this.foodService.claimFood(this.food.docId).then(() => {
+      this.isPending = true;
+    })
   }
 
   dismiss() {

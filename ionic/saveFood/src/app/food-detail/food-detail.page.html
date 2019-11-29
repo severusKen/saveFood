@@ -20,7 +20,8 @@
         <ion-item>Donor: Test</ion-item>
         <ion-item>Posted: 12hr ago</ion-item>
       </ion-list>
-      <ion-button expand="block" (click)="foodService.claimFood(food)">Claim</ion-button>
+      <ion-button expand="block" (click)="claimFood()" *ngIf="!isPening">Claim</ion-button>
+      <ion-button expand="block" (click)="claimFood()" *ngIf="isPening" color="danger">Claim</ion-button>
     </ion-card-content>
   </ion-card>
 

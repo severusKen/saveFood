@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { UserService } from './user.service';
+import { ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,9 @@ export class FoodService {
   public receivingFood: any;
   public receivedFood: any;
 
-  constructor(private af: AngularFirestore, public userService: UserService) {
+  constructor(private af: AngularFirestore, 
+              public userService: UserService,
+              public toastController: ToastController) {
     this.resetFoodList();
     this.getDonatedFood();
     this.getReceivingFood();
@@ -67,7 +70,7 @@ export class FoodService {
   updateFoodInformation(id, data) {
     const foodDocument = this.af.doc<any>(`foodlist/${id}`);
     foodDocument.update(data).then(() => {
-      this.userService.showMsg('Claimed. Check your stash.');
+      this.showMsg('Claimed. Check your stash.');
     })
   }
 
@@ -75,10 +78,10 @@ export class FoodService {
    * @description Modify the selected food's receiverUid to current user's UID, if he decides to claim the food
    * @param food Food record => Used to extract food Id for modification
    */
-  claimFood(food) {
-    this.userService.getCurrentUserUID().then(uid => {
+  claimFood(docId) {
+    return this.userService.getCurrentUserUID().then(uid => {
       if (!uid) return;
-      this.updateFoodInformation(food.docId, { receiverUid: uid });
+      this.updateFoodInformation(docId, { receiverUid: uid, status: 'pending' });
     })
   }
 
@@ -104,5 +107,18 @@ export class FoodService {
       this.donatedFood = this.af.collection('foodlist', ref => ref.where('donorUid', '==', uid)).valueChanges();
       console.log(this.donatedFood)
     });
+  }
+
+  /**
+   * @description Show a popup that displays the given message
+   * @param msg Message
+   */
+  async showMsg(msg: string) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 2000,
+      color: 'dark'
+    });
+    toast.present();
   }
 }

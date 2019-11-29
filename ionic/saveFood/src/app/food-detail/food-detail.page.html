@@ -30,7 +30,7 @@
     <ion-card-content>
       <ion-img src="../../assets/images/map_test.jpg"></ion-img>
       {{ food.location }}
-      <ion-button expand="block">Navigate</ion-button>
+      <ion-button expand="block" (click)="locationService.openInGoogleMap(food.location)">Navigate</ion-button>
     </ion-card-content>
   </ion-card>
 

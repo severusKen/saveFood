@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { FoodService } from '../services/food.service';
+import { LocationService } from '../services/location.service';
 @Component({
   selector: 'app-food-detail',
   templateUrl: './food-detail.page.html',
@@ -13,13 +14,11 @@ export class FoodDetailPage implements OnInit {
   food: any = {};
   constructor(public modalCtrl: ModalController,
               public activatedRoute: ActivatedRoute,
-              public foodService: FoodService) {
+              public foodService: FoodService,
+              public locationService: LocationService) {
     let foodSub = activatedRoute.queryParams.subscribe((res) => {
       this.food = res;
       if (res.status == 'pending') this.isPending = true;
-      console.log(this.isPending)
-      //this.isPending = (this.food.status == 'pending') ? true : false;
-      console.log(this.food)
     });
     setTimeout(() => { foodSub.unsubscribe(); }, 1000);
   }

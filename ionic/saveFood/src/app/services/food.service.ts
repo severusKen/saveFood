@@ -57,7 +57,7 @@ export class FoodService {
    * @description Add new record to food database
    * @param data new food data in object format
    */
-  uploadFood(data) {
+  uploadFood(data: any) {
     const food_database = this.af.collection('foodlist');
     return food_database.add(data);
   }
@@ -67,10 +67,11 @@ export class FoodService {
    * @param id ID of food record
    * @param data New data in Object format { key: newValue }
    */
-  updateFoodInformation(id, data) {
+  updateFoodInformation(id: string, data: any) {
     const foodDocument = this.af.doc<any>(`foodlist/${id}`);
     foodDocument.update(data).then(() => {
-      this.showMsg('Claimed. Check your stash.');
+      if (data.receiverUid !== '') this.showMsg('Claimed. Check your stash.');
+      if (data.receiverUid == '') this.showMsg('Claim cancelled');
     })
   }
 
@@ -78,7 +79,7 @@ export class FoodService {
    * @description Modify the selected food's receiverUid to current user's UID, if he decides to claim the food
    * @param food Food record => Used to extract food Id for modification
    */
-  claimFood(docId) {
+  claimFood(docId: string) {
     return this.userService.getCurrentUserUID().then(uid => {
       if (!uid) return;
       this.updateFoodInformation(docId, { receiverUid: uid, status: 'pending' });
@@ -102,10 +103,8 @@ export class FoodService {
    */
   getDonatedFood() {
     this.userService.getCurrentUserUID().then(uid => {
-      console.log('wtf')
       if (!uid) return;
       this.donatedFood = this.af.collection('foodlist', ref => ref.where('donorUid', '==', uid)).valueChanges();
-      console.log(this.donatedFood)
     });
   }
 
@@ -120,5 +119,12 @@ export class FoodService {
       color: 'dark'
     });
     toast.present();
+  }
+  
+  cancelFoodClaim(docId: string) {
+    return this.userService.getCurrentUserUID().then(uid => {
+      if (!uid) return;
+      this.updateFoodInformation(docId, { receiverUid: '', status: 'available' });
+    })
   }
 }

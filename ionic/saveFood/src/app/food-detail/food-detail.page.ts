@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController, Platform } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { FoodService } from '../services/food.service';
 @Component({
@@ -9,27 +9,33 @@ import { FoodService } from '../services/food.service';
 })
 export class FoodDetailPage implements OnInit {
   @Input() data: any;
-  isPending: boolean;
+  isPending: boolean = false;
   food: any = {};
   constructor(public modalCtrl: ModalController,
-              private platform: Platform,
               public activatedRoute: ActivatedRoute,
               public foodService: FoodService) {
     let foodSub = activatedRoute.queryParams.subscribe((res) => {
       this.food = res;
-      this.isPending = (this.food.status == 'pending') ? true : false;
+      if (res.status == 'pending') this.isPending = true;
+      console.log(this.isPending)
+      //this.isPending = (this.food.status == 'pending') ? true : false;
       console.log(this.food)
     });
-    setTimeout(() => { foodSub.unsubscribe(); console.log('Unsubbed fetching food detail'); }, 1000);
+    setTimeout(() => { foodSub.unsubscribe(); }, 1000);
   }
 
-  async ngOnInit() {
-    await this.platform.ready();
+  ngOnInit() {
   }
 
   claimFood() {
     this.foodService.claimFood(this.food.docId).then(() => {
       this.isPending = true;
+    })
+  }
+
+  cancelClaim() {
+    this.foodService.cancelFoodClaim(this.food.docId).then(() => {
+      this.isPending = false;
     })
   }
 

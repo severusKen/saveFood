@@ -20,7 +20,7 @@ export class FoodListPage implements OnInit {
   ngOnInit() {
   }
 
-  async openFoodDetail(food) {
+  async openFoodDetail(food: any) {
     this.router.navigate(['/food-detail'], { queryParams: food });
   }
 

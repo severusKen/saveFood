@@ -25,11 +25,17 @@ export class FoodService {
    * @note This function is used like a way to "refresh" the list
    */
   resetFoodList() {
-    this.foodList = this.af.collection('foodlist').valueChanges().pipe(
-      map((foods: any) => foods.filter(
-        (food: any) => (food['receiverUid'] === '' || !food['receiverUid']) // Only show food that none has claimed yet
-      )),
-    );
+    this.foodList = 
+    this.af.collection('foodlist', ref => ref.where('receiverUid', '==', '')).snapshotChanges()
+      .pipe(
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data() as any;
+            const docId = a.payload.doc.id;
+            return { docId, ...data };
+          });
+        })
+      );
   }
 
   /**
@@ -61,7 +67,7 @@ export class FoodService {
   updateFoodInformation(id, data) {
     const foodDocument = this.af.doc<any>(`foodlist/${id}`);
     foodDocument.update(data).then(() => {
-
+      this.userService.showMsg('Claimed. Check your stash.');
     })
   }
 
@@ -72,30 +78,8 @@ export class FoodService {
   claimFood(food) {
     this.userService.getCurrentUserUID().then(uid => {
       if (!uid) return;
-      this.getFoodDocumentId(food.id).subscribe(res => {
-        console.log(res)
-        this.updateFoodInformation(res[0]['docId'], { receiverUid: uid });
-      })
+      this.updateFoodInformation(food.docId, { receiverUid: uid });
     })
-  }
-
-
-  /**
-   * @description Based on food, get food's document ID (for modification in firebase data)
-   * @param foodId food.id
-   */
-  getFoodDocumentId(foodId) {
-    return this.af.collection('foodlist', ref => ref.where('id', '==', foodId).limit(1))
-      .snapshotChanges()
-      .pipe(
-        map(actions => {
-          return actions.map(a => {
-            const data = a.payload.doc.data() as any;
-            const docId = a.payload.doc.id;
-            return { docId, ...data };
-          });
-        })
-      );
   }
 
   /**
@@ -106,10 +90,7 @@ export class FoodService {
     this.userService.getCurrentUserUID().then(uid => {
       if (!uid) return;
       this.receivingFood = 
-        this.af.collection('foodlist', 
-          ref => ref.where('receiverUid', '==', uid)
-            .where('status', '==', 'pending'))
-              .valueChanges()
+        this.af.collection('foodlist', ref => ref.where('receiverUid', '==', uid)).valueChanges();
     })
   }
 

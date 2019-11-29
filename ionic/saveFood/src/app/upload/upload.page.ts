@@ -13,7 +13,8 @@ export class UploadPage implements OnInit {
   newFood: any = {
     location: '',
     name: '',
-    description: ''
+    description: '',
+    status: 'available'
   }
   constructor(public modalCtrl: ModalController, 
               public imageService: ImageService,

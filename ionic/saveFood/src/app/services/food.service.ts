@@ -7,6 +7,8 @@ import { UserService } from './user.service';
   providedIn: 'root'
 })
 export class FoodService {
+  public isDonor: boolean;
+  public foodDetailStatus: string;
   public foodList: any;
   public donatedFood: any;
   public receivingFood: any;

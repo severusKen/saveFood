@@ -10,7 +10,8 @@ const routes: Routes = [
   { path: 'regcomplete', loadChildren: './regcomplete/regcomplete.module#RegcompletePageModule' },
   { path: 'food-detail', loadChildren: './food-detail/food-detail.module#FoodDetailPageModule' },
   { path: 'upload', loadChildren: './upload/upload.module#UploadPageModule' },
-  { path: 'stash', loadChildren: './stash/stash.module#StashPageModule' },  { path: 'update-profile', loadChildren: './update-profile/update-profile.module#UpdateProfilePageModule' }
+  { path: 'stash', loadChildren: './stash/stash.module#StashPageModule' },  { path: 'update-profile', loadChildren: './update-profile/update-profile.module#UpdateProfilePageModule' },
+  { path: 'map', loadChildren: './map/map.module#MapPageModule' }
 
 ];
 

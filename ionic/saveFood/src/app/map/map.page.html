@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Location</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <iframe id="iframe-map" frameborder="0" allowfullscreen [src]="getSanitizedLink()"
+    style="width: 100%; height: 100%; border: 0;"></iframe>
+</ion-content>

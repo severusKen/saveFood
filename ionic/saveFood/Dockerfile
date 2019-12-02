@@ -3,11 +3,14 @@ FROM node:10.13.0
 RUN mkdir /usr/src/app
 WORKDIR /usr/src/app
 
+COPY package*.json ./
+RUN npm install --save
+
+RUN npm install -g ionic
+RUN npm install -g @angular/cli@latest
+
 COPY . ./
-RUN npm install -g @angular/cli@7.1.4
-RUN npm install http-server -g
 
-RUN npm install
-RUN ng build --prod --aot --output-hashing=none
+EXPOSE 8100
 
-CMD http-server ./www
+CMD ionic serve

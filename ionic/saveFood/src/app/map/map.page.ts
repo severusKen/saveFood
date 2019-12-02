@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer} from '@angular/platform-browser';
-import { SecureContext } from 'tls';
 
 @Component({
   selector: 'app-map',

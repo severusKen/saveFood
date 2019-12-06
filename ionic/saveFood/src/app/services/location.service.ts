@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 export class LocationService {
   url: string = 'https://ws1.postescanada-canadapost.ca/AddressComplete/Interactive/Find/v2.10/json3ex.ws';
   google_map_api_key: string = 'AIzaSyAiF_e-EHwkxNXuJEMzjA7q6FpzwtbolHU';
-  api_key: string = 'UX24-TX29-NB22-TN37';
+  api_key: string = 'JJ67-EU82-AU99-GY62';
   country: string = 'CAN';
   constructor(public platform: Platform, public router: Router) { }
 
